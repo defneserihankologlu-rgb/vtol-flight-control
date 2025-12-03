@@ -98,6 +98,8 @@ private:
   void modeCmdCb(const std_msgs::msg::UInt8::SharedPtr msg)
   {
     uint8_t requested = msg->data;
+    RCLCPP_INFO(this->get_logger(),
+      "📥 Mode command received: %d (current mode: %d)", requested, current_mode_);
     handleModeRequest(requested, ucus_msgs::msg::FlightMode::REASON_MANUAL);
   }
 
@@ -219,16 +221,20 @@ private:
     // Validate mode transitions
     if (!isValidTransition(current_mode_, requested_mode)) {
       RCLCPP_WARN(this->get_logger(),
-        "Invalid transition from mode %d to mode %d", current_mode_, requested_mode);
+        "❌ Invalid transition from mode %d to mode %d", current_mode_, requested_mode);
       return;
     }
+    RCLCPP_DEBUG(this->get_logger(),
+      "✓ Transition valid: %d -> %d", current_mode_, requested_mode);
 
     // Check preconditions for requested mode
     if (!checkModePreconditions(requested_mode)) {
       RCLCPP_WARN(this->get_logger(),
-        "Preconditions not met for mode %d", requested_mode);
+        "❌ Preconditions not met for mode %d", requested_mode);
       return;
     }
+    RCLCPP_DEBUG(this->get_logger(),
+      "✓ Preconditions met for mode %d", requested_mode);
 
     // Execute transition
     changeMode(requested_mode, reason);
@@ -455,6 +461,12 @@ private:
         return (to_mode == ucus_msgs::msg::FlightMode::MC ||
                 to_mode == ucus_msgs::msg::FlightMode::HOVER);
         
+      case ucus_msgs::msg::FlightMode::EMERGENCY:
+        // From EMERGENCY, can only go to safe modes (MC or HOVER)
+        // Emergency conditions must be cleared first (checked in handleModeRequest)
+        return (to_mode == ucus_msgs::msg::FlightMode::MC ||
+                to_mode == ucus_msgs::msg::FlightMode::HOVER);
+        
       default:
         return false;
     }
@@ -465,6 +477,8 @@ private:
     if (!have_odom_) {
       // Most modes require odometry
       if (mode != ucus_msgs::msg::FlightMode::MC) {
+        RCLCPP_WARN(this->get_logger(),
+          "Mode %d requires odometry, but none available", mode);
         return false;
       }
     }
@@ -473,10 +487,13 @@ private:
       case ucus_msgs::msg::FlightMode::FW:
       case ucus_msgs::msg::FlightMode::TRANSITION_MC_TO_FW: {
         double alt = last_odom_.pose.pose.position.z;
+        RCLCPP_DEBUG(this->get_logger(),
+          "Checking altitude for mode %d: %.1f m (required: >= %.1f m)", 
+          mode, alt, min_fw_alt_);
         if (alt < min_fw_alt_) {
           RCLCPP_WARN(this->get_logger(),
-            "FW mode requires altitude >= %.1f m (current: %.1f m)", 
-            min_fw_alt_, alt);
+            "❌ Mode %d requires altitude >= %.1f m (current: %.1f m)", 
+            mode, min_fw_alt_, alt);
           return false;
         }
         break;

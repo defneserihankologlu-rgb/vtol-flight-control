@@ -15,6 +15,7 @@ install(PROGRAMS
   src/flight_mode_marker_publisher.py
   src/odom_tf_broadcaster.py
   src/vtol_model_publisher.py
+  src/keyboard_command_node.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
