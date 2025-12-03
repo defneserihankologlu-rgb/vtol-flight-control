@@ -1,0 +1,35 @@
+# ROS 2 build artifacts
+build/
+install/
+log/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+
+# Flight logs (rosbag)
+logs/vtol_flight_*
+
+# Keep latest logs directory structure but ignore contents
+!log/COLCON_IGNORE
+!logs/.gitkeep
+

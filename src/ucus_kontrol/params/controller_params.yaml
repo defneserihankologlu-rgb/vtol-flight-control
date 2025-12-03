@@ -1,0 +1,126 @@
+vtol_controller:
+  ros__parameters:
+    # ========== DEFAULT PARAMETERS (Moderate Tuning) ==========
+    # This is the default parameter file. For tuning, use:
+    # - controller_params_conservative.yaml (for initial testing)
+    # - controller_params_moderate.yaml (balanced - recommended start)
+    # - controller_params_tuned.yaml (after initial tuning)
+    #
+    # See CONTROLLER_TUNING_GUIDE.md for detailed tuning instructions
+    
+    # ========== MC (Multicopter) Position Control Parameters (PID) ==========
+    # Altitude control (Z-axis) - PID gains
+    kp_z: 0.8          # Proportional gain (start: 0.8, range: 0.3-2.0)
+    ki_z: 0.05         # Integral gain (start: 0.05, range: 0.01-0.2)
+    kd_z: 0.1          # Derivative gain (start: 0.1, range: 0.05-0.3)
+    integral_z_max: 0.5  # Maximum integral windup (anti-windup)
+    
+    # Horizontal position control (X, Y) - PID gains
+    kp_xy: 0.5         # Proportional gain (start: 0.5, range: 0.2-1.5)
+    ki_xy: 0.02        # Integral gain (start: 0.02, range: 0.01-0.1)
+    kd_xy: 0.08        # Derivative gain (start: 0.08, range: 0.05-0.2)
+    integral_xy_max: 0.3  # Maximum integral windup
+    
+    # Velocity feedforward gains (for smoother control)
+    kv_xy: 0.3         # Horizontal velocity feedforward
+    kv_z: 0.2          # Vertical velocity feedforward
+    
+    # ========== MC Attitude Control Parameters (PID) ==========
+    # Roll control - PID gains
+    kp_roll: 0.8       # Proportional gain
+    ki_roll: 0.05      # Integral gain
+    kd_roll: 0.1       # Derivative gain
+    
+    # Pitch control - PID gains
+    kp_pitch: 0.8      # Proportional gain
+    ki_pitch: 0.05     # Integral gain
+    kd_pitch: 0.1      # Derivative gain
+    
+    # Yaw control - PID gains
+    kp_yaw: 0.3        # Proportional gain
+    ki_yaw: 0.02       # Integral gain
+    kd_yaw: 0.05       # Derivative gain
+    
+    # ========== Attitude Rate Control Parameters ==========
+    kp_roll_rate: 0.15   # Roll rate control gain
+    kp_pitch_rate: 0.15  # Pitch rate control gain
+    kp_yaw_rate: 0.1     # Yaw rate control gain
+    
+    # ========== Position to Attitude Mapping ==========
+    max_roll_angle: 0.35   # Maximum roll angle (rad) ~20 deg
+    max_pitch_angle: 0.35  # Maximum pitch angle (rad) ~20 deg
+    
+    # Base hover thrust (0.0 - 1.0)
+    # Typical: 0.4 - 0.6 for most quadcopters
+    # CRITICAL: Must be tuned for your specific vehicle!
+    # Too low: won't hover, too high: unstable
+    # Tuning: Start at 0.4, increase until stable hover at desired altitude
+    hover_thrust: 0.5
+    
+    # ========== FW (Fixed-Wing) Control Parameters ==========
+    # Airspeed control gain
+    # Start: 0.1, Range: 0.05 - 0.3
+    # Tuning: Increase for faster airspeed response
+    kp_airspeed: 0.1
+    
+    # Altitude control gain for FW mode (via elevator)
+    # Start: 0.05, Range: 0.02 - 0.15
+    # Tuning: Increase for better altitude tracking in FW mode
+    kp_altitude_fw: 0.05
+    
+    # Cruise airspeed (m/s)
+    # Typical: 12 - 20 m/s for small VTOLs
+    # Adjust based on your vehicle's design
+    cruise_airspeed: 15.0
+    
+    # Cruise altitude (m)
+    # Typical altitude for forward flight
+    cruise_altitude: 30.0
+    
+    # ========== Transition Parameters ==========
+    # Transition duration (seconds)
+    # How long the transition from MC to FW (or vice versa) takes
+    # Typical: 5-8 seconds
+    # Longer = smoother but slower, shorter = faster but may be jerky
+    transition_duration: 6.0
+    
+    # Transition blending (0.0 = MC, 1.0 = FW)
+    # Usually keep at 0.0 and 1.0 for full range
+    transition_blend_start: 0.0
+    transition_blend_end: 1.0
+    
+    # Transition airspeed threshold (m/s)
+    # Minimum airspeed before completing MC->FW transition
+    # Prevents transition completion until sufficient forward speed
+    transition_airspeed_threshold: 12.0
+    
+    # ========== Safety Parameters ==========
+    # Thrust limits (0.0 - 1.0)
+    # CRITICAL: Set these based on your hardware limits!
+    # thrust_min: Minimum allowed thrust (usually 0.0, but can be higher for safety)
+    # thrust_max: Maximum allowed thrust (keep below 1.0 for safety margin)
+    thrust_min: 0.0
+    thrust_max: 0.9
+    
+    # Actuator output limits
+    # Maximum control surface deflection (normalized -1.0 to 1.0)
+    # Prevents excessive control surface movement
+    control_surface_max: 0.6
+    
+    # Odometry timeout (seconds)
+    # If odometry is older than this, zero outputs for safety
+    odom_timeout: 0.5
+    
+    # Control loop rate (Hz)
+    # Typical: 50 - 100 Hz
+    # Higher = more responsive but more CPU usage
+    pub_rate_hz: 50
+    
+    # ========== Actuator Configuration ==========
+    # Number of multicopter motors
+    num_mc_motors: 4
+    
+    # Number of fixed-wing control surfaces
+    # (aileron, elevator, rudder)
+    num_fw_surfaces: 3
+

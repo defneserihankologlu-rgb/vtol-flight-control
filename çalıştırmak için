@@ -1,0 +1,5 @@
+cd ~/ucus_kontrol_ws
+source /opt/ros/humble/setup.bash
+source install/setup.bash
+ros2 launch ucus_bringup vtol_demo.launch.py
+

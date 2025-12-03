@@ -1,0 +1,69 @@
+vtol_controller:
+  ros__parameters:
+    # ========== MODERATE TUNING PRESET ==========
+    # Balanced performance - good starting point for most vehicles
+    # Moderate gains = balanced response and stability
+    
+    # ========== MC (Multicopter) Control Parameters ==========
+    # Altitude control gain (P term)
+    # Moderate: Balanced gain
+    kp_z: 0.8
+    
+    # Horizontal position control gain (x, y)
+    # Moderate: Balanced gain
+    kp_xy: 0.5
+    
+    # Yaw control gain
+    # Moderate: Balanced gain
+    kp_yaw: 0.3
+    
+    # Base hover thrust (0.0 - 1.0)
+    # Moderate: Typical value for most quadcopters
+    hover_thrust: 0.5
+    
+    # ========== FW (Fixed-Wing) Control Parameters ==========
+    # Airspeed control gain
+    # Moderate: Balanced gain
+    kp_airspeed: 0.1
+    
+    # Altitude control gain for FW mode (via elevator)
+    # Moderate: Balanced gain
+    kp_altitude_fw: 0.05
+    
+    # Cruise airspeed (m/s)
+    cruise_airspeed: 15.0
+    
+    # Cruise altitude (m)
+    cruise_altitude: 30.0
+    
+    # ========== Transition Parameters ==========
+    # Transition duration (seconds)
+    # Moderate: Standard transition time
+    transition_duration: 6.0
+    
+    # Transition blending start/end (0.0 = MC, 1.0 = FW)
+    transition_blend_start: 0.0
+    transition_blend_end: 1.0
+    
+    # Transition airspeed threshold (m/s)
+    transition_airspeed_threshold: 12.0
+    
+    # ========== Safety Parameters ==========
+    # Thrust limits (0.0 - 1.0)
+    # Moderate: Standard limits
+    thrust_min: 0.0
+    thrust_max: 0.9
+    
+    # Actuator output limits
+    control_surface_max: 0.6
+    
+    # Odometry timeout (seconds)
+    odom_timeout: 0.5
+    
+    # Control loop rate (Hz)
+    pub_rate_hz: 50
+    
+    # ========== Actuator Configuration ==========
+    num_mc_motors: 4
+    num_fw_surfaces: 3
+

@@ -1,0 +1,29 @@
+safety_monitor:
+  ros__parameters:
+    # Battery thresholds (for 3S LiPo: 9.0V min, 10.5V low, 12.6V max)
+    battery_min_voltage: 10.5      # Critical voltage [V]
+    battery_low_voltage: 11.0       # Warning voltage [V]
+    battery_max_voltage: 12.6       # Full charge voltage [V]
+    
+    # GPS thresholds
+    gps_min_satellites: 6           # Minimum satellites for good fix
+    gps_max_hdop: 2.0                # Maximum HDOP (lower is better)
+    gps_max_accuracy_m: 5.0          # Maximum position accuracy [m]
+    
+    # Link timeouts
+    rc_link_timeout: 1.0             # RC link timeout [s]
+    telemetry_link_timeout: 2.0     # Telemetry link timeout [s]
+    
+    # Geofence limits
+    max_altitude: 120.0              # Maximum altitude [m]
+    max_distance_from_home: 1000.0  # Maximum distance from home [m]
+    enable_geofence: true            # Enable geofencing
+    
+    # Sensor timeouts
+    imu_timeout: 0.5                 # IMU data timeout [s]
+    gps_timeout: 2.0                 # GPS data timeout [s]
+    odom_timeout: 1.0                # Odometry timeout [s]
+    
+    # Publication rate
+    pub_rate_hz: 10                  # Safety status publication rate
+

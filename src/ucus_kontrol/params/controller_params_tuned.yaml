@@ -1,0 +1,70 @@
+vtol_controller:
+  ros__parameters:
+    # ========== TUNED PRESET (Higher Performance) ==========
+    # Use after initial testing - higher gains for better response
+    # Higher gains = faster response but may oscillate if too high
+    # Tuned by gradually increasing until oscillations appear, then back off 20%
+    
+    # ========== MC (Multicopter) Control Parameters ==========
+    # Altitude control gain (P term)
+    # Tuned: Higher gain for better response (backed off 20% from oscillation point)
+    kp_z: 1.2
+    
+    # Horizontal position control gain (x, y)
+    # Tuned: Higher gain
+    kp_xy: 0.8
+    
+    # Yaw control gain
+    # Tuned: Higher gain
+    kp_yaw: 0.5
+    
+    # Base hover thrust (0.0 - 1.0)
+    # Tuned: Adjusted for your specific vehicle
+    hover_thrust: 0.55
+    
+    # ========== FW (Fixed-Wing) Control Parameters ==========
+    # Airspeed control gain
+    # Tuned: Higher gain for better airspeed tracking
+    kp_airspeed: 0.15
+    
+    # Altitude control gain for FW mode (via elevator)
+    # Tuned: Higher gain
+    kp_altitude_fw: 0.08
+    
+    # Cruise airspeed (m/s)
+    cruise_airspeed: 18.0
+    
+    # Cruise altitude (m)
+    cruise_altitude: 35.0
+    
+    # ========== Transition Parameters ==========
+    # Transition duration (seconds)
+    # Tuned: Faster transition (after testing)
+    transition_duration: 5.0
+    
+    # Transition blending start/end (0.0 = MC, 1.0 = FW)
+    transition_blend_start: 0.0
+    transition_blend_end: 1.0
+    
+    # Transition airspeed threshold (m/s)
+    transition_airspeed_threshold: 14.0
+    
+    # ========== Safety Parameters ==========
+    # Thrust limits (0.0 - 1.0)
+    # Tuned: Allow more range (but still safe)
+    thrust_min: 0.0
+    thrust_max: 0.95
+    
+    # Actuator output limits
+    control_surface_max: 0.7
+    
+    # Odometry timeout (seconds)
+    odom_timeout: 0.5
+    
+    # Control loop rate (Hz)
+    pub_rate_hz: 50
+    
+    # ========== Actuator Configuration ==========
+    num_mc_motors: 4
+    num_fw_surfaces: 3
+

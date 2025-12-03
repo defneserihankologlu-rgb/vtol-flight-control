@@ -1,0 +1,72 @@
+vtol_controller:
+  ros__parameters:
+    # ========== CONSERVATIVE TUNING PRESET ==========
+    # Use this for initial testing and safety
+    # Lower gains = slower response but more stable
+    
+    # ========== MC (Multicopter) Control Parameters ==========
+    # Altitude control gain (P term)
+    # Conservative: Lower gain for stability
+    kp_z: 0.5
+    
+    # Horizontal position control gain (x, y)
+    # Conservative: Lower gain
+    kp_xy: 0.3
+    
+    # Yaw control gain
+    # Conservative: Lower gain
+    kp_yaw: 0.2
+    
+    # Base hover thrust (0.0 - 1.0)
+    # Conservative: Start with lower value, adjust based on vehicle
+    hover_thrust: 0.45
+    
+    # ========== FW (Fixed-Wing) Control Parameters ==========
+    # Airspeed control gain
+    # Conservative: Lower gain for smooth control
+    kp_airspeed: 0.08
+    
+    # Altitude control gain for FW mode (via elevator)
+    # Conservative: Lower gain
+    kp_altitude_fw: 0.03
+    
+    # Cruise airspeed (m/s)
+    cruise_airspeed: 12.0
+    
+    # Cruise altitude (m)
+    cruise_altitude: 25.0
+    
+    # ========== Transition Parameters ==========
+    # Transition duration (seconds)
+    # Conservative: Longer transition for safety
+    transition_duration: 8.0
+    
+    # Transition blending start/end (0.0 = MC, 1.0 = FW)
+    # Conservative: Gradual blending
+    transition_blend_start: 0.0
+    transition_blend_end: 1.0
+    
+    # Transition airspeed threshold (m/s)
+    # Minimum airspeed before completing MC->FW transition
+    transition_airspeed_threshold: 10.0
+    
+    # ========== Safety Parameters ==========
+    # Thrust limits (0.0 - 1.0)
+    # Conservative: More restrictive limits
+    thrust_min: 0.1
+    thrust_max: 0.85
+    
+    # Actuator output limits
+    # Control surface limits (normalized -1.0 to 1.0)
+    control_surface_max: 0.4
+    
+    # Odometry timeout (seconds)
+    odom_timeout: 0.5
+    
+    # Control loop rate (Hz)
+    pub_rate_hz: 50
+    
+    # ========== Actuator Configuration ==========
+    num_mc_motors: 4
+    num_fw_surfaces: 3
+

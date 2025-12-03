@@ -1,0 +1,27 @@
+ekf:
+  ros__parameters:
+    # Frame configuration
+    world_frame: "map"
+    base_frame: "base_link"
+    publish_rate_hz: 50
+    
+    # Sensor enable flags
+    use_gps: true
+    use_barometer: true
+    use_magnetometer: true
+    
+    # Sensor noise parameters
+    imu_noise_accel: 0.05      # IMU accelerometer noise
+    imu_noise_gyro: 0.01       # IMU gyroscope noise
+    gps_noise_xy: 1.5          # GPS horizontal position noise (m)
+    gps_noise_z: 3.0           # GPS vertical position noise (m)
+    baro_noise: 0.8            # Barometer altitude noise (m)
+    mag_noise: 0.05            # Magnetometer noise
+    
+    # Complementary filter gains
+    accel_weight: 0.02         # Weight for accelerometer in attitude fusion
+    mag_weight: 0.01           # Weight for magnetometer in yaw fusion
+    
+    # Barometer reference
+    reference_pressure: 101325.0  # Sea level pressure (Pa)
+    reference_altitude: 0.0        # Reference altitude (m)

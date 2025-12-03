@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>ucus_msgs</name>
+  <version>0.0.0</version>
+  <description>Ucus custom messages</description>
+
+  <maintainer email="asus@todo.todo">asus</maintainer>
+  <license>Apache-2.0</license>
+
+  <!-- ROS2 ament build system -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- Interface üretimi -->
+  <depend>rosidl_default_generators</depend>
+  <depend>std_msgs</depend>
+  <exec_depend>rosidl_default_runtime</exec_depend>
+
+  <!-- ROS2 interface paketi olduğunu bildir -->
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <!-- Build tipini AÇIKÇA ament_cmake yap -->
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
